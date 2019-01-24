@@ -30,6 +30,4 @@ RUN ./configure
 RUN make && make install
 RUN ldconfig
 
-WORKDIR "~"
-
 # TODO GangSTR, dumpSTR install
