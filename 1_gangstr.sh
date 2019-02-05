@@ -2,7 +2,9 @@
 
 # Usage: ./1_gangstr.sh <configfile>
 
-CONFIG=$1
+CONFIG="$1"
+
+source $CONFIG
 
 die()
 {
@@ -11,4 +13,13 @@ die()
     exit 1
 }
 
-exit 1 # Not implemented
+/home/ryanicky/bin/GangSTR --bam $bams \
+        --bam-samps $bamsamps \
+        --ref $ref \
+        --regions $regions \
+        --out $out \
+        --str-info $strinfo \
+        --chrom $chrom \
+        --period $period
+|| die "Error running GangSTR"
+exit 0 # Not implemented
