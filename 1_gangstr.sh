@@ -2,6 +2,8 @@
 
 # Usage: ./1_gangstr.sh <configfile>
 
+echo $(date '+%Y %b %d %H:%M') GangSTR started 
+
 CONFIG="$1"
 params=""
 source $CONFIG
@@ -51,6 +53,7 @@ if [[ $period ]]; then
 params=$params" --period "$period
 fi
 
+echo Parameters used for GangSTR
 echo $params
 
 #/home/ryanicky/bin/GangSTR --bam $bams \
@@ -62,4 +65,7 @@ echo $params
 #        --chrom $chrom \
 #        --period $period \
 /home/ryanicky/bin/GangSTR $params || die "Error running GangSTR"
+
+echo $(date '+%Y %b %d %H:%M') GangSTR ended
+
 exit 0 # Not implemented
