@@ -2,7 +2,7 @@
 
 # Usage: ./run.sh <configfile>
 
-CONFIG=$1
+CONFIG="$1"
 
 die()
 {
