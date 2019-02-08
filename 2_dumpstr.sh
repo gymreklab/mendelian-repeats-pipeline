@@ -31,7 +31,7 @@ fi
     --vcf $vcf   \
     --filter-regions $filterregions \
     --filter-regions-names $filterregionsnames \
-    --out $outdstr $optdumpstr || die exit 1 
+    --out $outdstr $OPTDUMPSTR || die exit 1 
 
 echo $(date '+%Y %b %d %H:%M') dumpSTR ended
 
