@@ -15,7 +15,6 @@ die()
     exit 1
 }
 
-<<<<<<< HEAD
 if [[ -z $bams ]]; then
 die "no bam file specified"
 fi
@@ -34,7 +33,7 @@ fi
          --regions $regions \
          --out $out \
          --str-info $strinfo \
-          $optgangstr || die "Error running GangSTR"
+          $OPTGANGSTR :|| die "Error running GangSTR"
 
 echo $(date '+%Y %b %d %H:%M') GangSTR ended
 
