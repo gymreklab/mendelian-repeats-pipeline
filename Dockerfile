@@ -49,9 +49,11 @@ RUN ./configure CXXFLAGS='-std=c++11'
 RUN make && make install
 RUN ldconfig
 
-# Install DumpSTR
+# Install DumpSTR - TODO make this a proper package
 WORKDIR "/"
 RUN git clone https://github.com/gymreklab/STRTools.git
+RUN cp STRTools/scripts/dumpSTR/*.py ~/bin/
+RUN cp STRTools/scripts/utils/*.py ~/bin/
 
 # Grab Mendelian pipeline
 WORKDIR "/"

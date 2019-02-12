@@ -27,13 +27,13 @@ die "no regions names file specified"
 fi
 
 
-/dumpSTR.py \
+dumpSTR.py \
     --vcf $vcf   \
     --filter-regions $filterregions \
     --filter-regions-names $filterregionsnames \
-    --out $outdstr $OPTDUMPSTR || die exit 1 
+    --out $outdstr $OPTDUMPSTR || die "Error running dumpSTR" 
 
 echo $(date '+%Y %b %d %H:%M') dumpSTR ended
 
 
-exit 0 # Not implemented
+exit 0

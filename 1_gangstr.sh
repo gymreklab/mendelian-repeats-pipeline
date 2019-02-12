@@ -28,13 +28,13 @@ die "no regions file specified"
 fi
 
 
-/GangSTR --bam $bams \
-         --ref $ref \
-         --regions $regions \
-         --out $out \
-         --str-info $strinfo \
-          $OPTGANGSTR :|| die "Error running GangSTR"
+GangSTR --bam $bams \
+    --ref $ref \
+    --regions $regions \
+    --out $out \
+    --str-info $strinfo \
+    $OPTGANGSTR || die "Error running GangSTR"
 
 echo $(date '+%Y %b %d %H:%M') GangSTR ended
 
-exit 0 # Not implemented
+exit 0
