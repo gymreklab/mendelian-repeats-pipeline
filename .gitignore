@@ -2,3 +2,7 @@
 *~
 #*
 *#
+
+# Pipeline output files
+*.tab
+*.vcf
