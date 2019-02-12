@@ -50,10 +50,9 @@ RUN wget -O htslib-1.8.tar.bz2 https://github.com/samtools/htslib/releases/downl
     cd htslib-1.8/ && \
     ./configure --disable-lzma --disable-bz2 && \
     make && make install
-WORKDIR "/"
-
 
 # Install GangSTR - TODO grab specific version
+WORKDIR "/"
 RUN git clone https://github.com/gymreklab/GangSTR.git
 WORKDIR "GangSTR"
 RUN ./reconf
