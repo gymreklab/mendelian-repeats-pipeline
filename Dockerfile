@@ -11,12 +11,24 @@ RUN apt-get update && apt-get install -qqy \
     libtool-bin \
     make \
     pkg-config \
+    python \
+    python-dev \
+    python-setuptools \
     software-properties-common \
     tk-dev \
     wget \
     libcurl4-gnutls-dev
 
+RUN easy_install pip
+RUN pip install pybedtools pyvcf scipy
+
 RUN mkdir /dependencies
+WORKDIR "/dependencies"
+
+RUN wget -O bedtools-2.27.1.tar.gz https://github.com/arq5x/bedtools2/releases/download/v2.27.1/bedtools-2.27.1.tar.gz && \
+    tar -xzvf bedtools-2.27.1.tar.gz && \
+    cd bedtools2 && \
+    make && make install 
 WORKDIR "/dependencies"
 
 RUN wget -O gsl-2.5.tar.gz ftp://ftp.gnu.org/gnu/gsl/gsl-2.5.tar.gz && \
