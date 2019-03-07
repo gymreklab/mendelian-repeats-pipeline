@@ -11,7 +11,11 @@ die()
     exit 1
 }
 
-./1_gangstr.sh $CONFIG || die "Error running GangSTR"
-./2_dumpstr.sh $CONFIG || die "Error running DumpSTR"
+if [ -x ${CONFIG} ]; then
+    die "No config file specified"
+fi
+
+./1_gangstr.sh ${CONFIG} || die "Error running GangSTR"
+./2_dumpstr.sh ${CONFIG} || die "Error running DumpSTR"
 
 exit 0

@@ -1,11 +1,10 @@
 #!/bin/bash
-set -x
 # Usage: ./1_gangstr.sh <configfile>
-
+set -x
 echo $(date '+%Y %b %d %H:%M') GangSTR started 
 
+THREADS=1 # default 1, overwritten by config file
 CONFIG="$1"
-params=""
 source $CONFIG
 
 die()
@@ -15,25 +14,38 @@ die()
     exit 1
 }
 
-if [[ -z $bams ]]; then
-die "no bam file specified"
+if [ -z $BAMS ]; then
+    die "no BAMS specified"
 fi
 
-if [[ -z $ref ]]; then
-die "no ref file specified"
+if [ -z $REFFA ]; then
+    die "no REFFA file specified"
 fi
  
-if [[ -z $regions ]]; then
-die "no regions file specified"
+if [ -z $REGIONS ]; then
+    die "no REGIONS file specified"
 fi
 
+if [ -z $STRINFO ]; then
+    die "no STRINFO file specified"
+fi
 
-GangSTR --bam $bams \
-    --ref $ref \
-    --regions $regions \
-    --out $out \
-    --str-info $strinfo \
-    $OPTGANGSTR || die "Error running GangSTR"
+if [ -z $OUTPREFIX ]; then
+    die "no OUTPREFIX specified"
+fi
+
+for chrom in ${CHROMS}
+do
+    cmd="GangSTR \
+	--bam $BAMS \
+	--ref $REFFA \
+	--regions $REGIONS \
+	--out ${OUTPREFIX}.${chrom} \
+	--str-info $STRINFO \
+        --chrom ${chrom} $OPTGANGSTR"
+    cmd="${cmd}; bgzip ${OUTPREFIX}.${chrom}.vcf"
+    echo "${cmd}"
+done | xargs -n1 -I% -P${THREADS} sh -c "%"
 
 echo $(date '+%Y %b %d %H:%M') GangSTR ended
 
