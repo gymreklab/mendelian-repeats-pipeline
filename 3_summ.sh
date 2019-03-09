@@ -40,7 +40,7 @@ intersectBed -a ${OUTPREFIX}.unaffected.tmp.bed \
 
 # Output original info for each candidate
 
-zcat ${OUTPREFIX}.merged.filtered.vcf.gz | grep -v "^#" > \
+zcat ${OUTPREFIX}.merged.filtered.vcf.gz | grep "^#" > \
     ${OUTPREFIX}.candidates.vcf
 for chrom in ${CHROMS}
 do
@@ -50,7 +50,7 @@ done >> ${OUTPREFIX}.candidates.vcf
 bgzip -f ${OUTPREFIX}.candidates.vcf
 tabix -p vcf ${OUTPREFIX}.candidates.vcf.gz
 bcftools query -f "%CHROM\t%POS\t%INFO/END[\t%REPCN]\n" \
-    ${OUTPREFIX}.candidates.vcf.gz > ${OUTPREFIX}.candidates.tab
+    ${OUTPREFIX}.candidates.vcf.gz | tee ${OUTPREFIX}.candidates.tab
 
 echo $(date '+%Y %b %d %H:%M') summarize ended
 
