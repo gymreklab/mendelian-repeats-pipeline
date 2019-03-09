@@ -43,7 +43,7 @@ do
 	--out ${OUTPREFIX}.${chrom} \
 	--str-info $STRINFO \
         --chrom ${chrom} $OPTGANGSTR"
-    cmd="${cmd}; bgzip ${OUTPREFIX}.${chrom}.vcf"
+    cmd="${cmd}; bgzip -f ${OUTPREFIX}.${chrom}.vcf"
     echo "${cmd}"
 done | xargs -n1 -I% -P${THREADS} sh -c "%"
 
