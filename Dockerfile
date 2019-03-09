@@ -1,4 +1,4 @@
-FROM gymreklab/str-toolkit
+FROM gymreklab/str-toolkit-2.4
 
 # Grab Mendelian pipeline
 RUN mkdir /pipeline

@@ -20,7 +20,8 @@ do
 	--min-call-DP ${MINCOV} \
 	--max-call-DP ${MAXCOV} \
 	--expansion-prob-het ${EXPHET} \
-	--out ${OUTPREFIX}.${chrom}.filtered $OPTDUMPSTR"
+	--out ${OUTPREFIX}.${chrom}.filtered \
+        --drop-filtered $OPTDUMPSTR"
     cmd="${cmd}; cat ${OUTPREFIX}.${chrom}.filtered.vcf | vcf-sort | bgzip -c > ${OUTPREFIX}.${chrom}.filtered.sorted.vcf.gz; tabix -p vcf ${OUTPREFIX}.${chrom}.filtered.sorted.vcf.gz"
     echo ${cmd}
 done | xargs -n1 -P${THREADS} -I% sh -c "%"
