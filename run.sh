@@ -17,6 +17,5 @@ fi
 
 ./1_gangstr.sh ${CONFIG} || die "Error running GangSTR"
 ./2_dumpstr.sh ${CONFIG} || die "Error running DumpSTR"
-./3_summ.sh ${CONFIG} || die "Error running summarize"
-
+./3_postmastr.sh ${CONFIG} || die "Error running postmastr"
 exit 0
