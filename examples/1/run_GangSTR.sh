@@ -1,8 +1,8 @@
-BAM=data/nc19_59.sorted.bam
-REF=data/fa/hg38_HTT.fa
-BED=data/HTT_offset_15.bed
-OUT=out/out
-INFO=data/HTT_offset_15_info.bed
+BAM=data/test.bam
+REF=data/test.fa
+BED=data/test_regions.bed
+OUT=out/test
+INFO=data/test_strinfo.bed
 GangSTR-2.4 \
     --bam $BAM \
     --ref $REF \
