@@ -15,42 +15,71 @@
 # See https://wiki.dnanexus.com/Developer-Portal for tutorials on how
 # to modify this file.
 
+# Need these inputs in the json:
+# bams: array of files
+# reffa: file
+# regionfile: file
+# strinfo : file
+# famfile: file
+# outprefix: string
+# TODO Add other numerical input options later
+# TODO how to index BAM files?
 main() {
-    dx ls -all
-    dx-docker run gymreklab/gangstr-pipeline-2.4 ./run.sh
-    #echo "Value of ConfigFile: '$ConfigFile'"
-    #echo "Value of bams: '${bams[@]}'"
+    ### Download the user inputs to /data folder ###
+    mkdir /data
 
-    # The following line(s) use the dx command-line tool to download your file
-    # inputs to the local file system using variable names for the filenames. To
-    # recover the original filenames, you can use the output of "dx describe
-    # "$variable" --name".
+    # BAM files
+    bamsfiles=""
+    for i in ${!bams[@]}
+    do
+        dx download "${bams[$i]}" -o /data/bams-$i.bam
+	bamfiles="${bamfiles},/data/bams-$i.bam"
+	dx-docker run -v /data/:/data quay.io/ucsc_cgl/samtools index /data/bams-$i.bam
+    done
+    bamfiles=$(echo $bamfiles | sed '/^,//')
 
-    #z3for i in ${!bams[@]}
-    #do
-    #    dx download "${bams[$i]}" -o bams-$i
-    #done
+    # Reference fasta file
+    dx download "$reffasta" -o /data/ref.fa
+    chroms=$(grep ">" /data/ref.fa | sed 's/^>//' | cut -f 1 -d' ')
 
-    # Fill in your application code here.
-    #
-    # To report any recognized errors in the correct format in
-    # $HOME/job_error.json and exit this script, you can use the
-    # dx-jobutil-report-error utility as follows:
-    #
-    #   dx-jobutil-report-error "My error message"
-    #
-    # Note however that this entire bash script is executed with -e
-    # when running in the cloud, so any line which returns a nonzero
-    # exit code will prematurely exit the script; if no error was
-    # reported in the job_error.json file, then the failure reason
-    # will be AppInternalError with a generic error message.
+    # Regions file
+    dx download "$regionfile" -o /data/regions.bed
 
-    # The following line(s) use the utility dx-jobutil-add-output to format and
-    # add output variables to your job's output as appropriate for the output
-    # class.  Run "dx-jobutil-add-output -h" for more information on what it
-    # does.
+    # STR info
+    dx download "$strinfo" - o /data/strinfo.bed
 
-    #for i in "${!vcfs[@]}"; do
-    #    dx-jobutil-add-output vcfs "${vcfs[$i]}" --class=array:file
-    #done
+    # Fam file
+    dx download "$famfile" -o /data/famfile.fam
+    
+    ### Construct the config file ###
+    CONFIGFILE=/data/config.txt
+    echo "BAMS=${bamfiles}" > ${CONFIGFILE}
+    echo "REFFA=/data/ref.fa" >> ${CONFIGFILE}
+    echo "REGIONS=/data/regions.bed" >> ${CONFIGFILE}
+    echo "STRINFO=/data/strinfo.bed" >> ${CONFIGFILE}
+    echo "FAMFILE=/data/famfile.fam" >> ${CONFIGFILE}
+    echo "CHROMS=${chroms}" >> ${CONFIGFILE}
+    
+    # Write output files to /results
+    mkdir /data/results
+    echo "OUTPREFIX=/data/results/${outprefix}" >> ${CONFIGFILE}
+
+    # Use hard coded numbers for now.
+    echo "MINCOV=20" >> ${CONFIGFILE}
+    echo "MAXCOV=1000" >> ${CONFIGFILE}
+    echo "EXPHET=0" >> ${CONFIGFILE}
+    echo "AFFECMINHET=0.8" >> ${CONFIGFILE}
+    echo "UNAFFMAXTOT=0.2" >> ${CONFIGFILE}
+    echo "THREADS=1" >> ${CONFIGFILE} # TODO can we change this?
+
+    ### Run the docker ###
+    dx-docker run -v /data/:/data gymreklab/gangstr-pipeline-2.4 ./run.sh
+    
+    ### Upload the outputs to DNA Nexus ###
+    for chrom in $chroms; do
+	vcffile=/data/results/${outprefix}.${chrom}.filtered.sorted.vcf.gz
+	vcfindex=${vcffile}.tbi
+	dx-jobutil-add-output vcfs $vcffile --class=array:file
+	dx-jobutil-add-output vcfs $vcfindex --class=array:file
+    done
 }
