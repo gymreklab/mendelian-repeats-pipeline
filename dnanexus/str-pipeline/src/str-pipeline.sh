@@ -74,7 +74,7 @@ main() {
     echo "THREADS=1" >> ${CONFIGFILE} # TODO can we change this?
 
     ### Run the docker ###
-    dx-docker run -v /data/:/data gymreklab/gangstr-pipeline-2.4 ./run.sh
+    dx-docker run -v /data/:/data gymreklab/gangstr-pipeline-2.4 ./run.sh ${CONFIGFILE}
     
     ### Upload the outputs to DNA Nexus ###
     for chrom in $chroms; do
