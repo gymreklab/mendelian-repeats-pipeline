@@ -15,7 +15,7 @@
 # See https://wiki.dnanexus.com/Developer-Portal for tutorials on how
 # to modify this file.
 
-# Need these inputs in the json:
+# TODO Need these inputs in the json:
 # bams: array of files
 # reffa: file
 # regionfile: file
@@ -24,6 +24,7 @@
 # outprefix: string
 # TODO Add other numerical input options later
 # TODO how to index BAM files?
+# TODO in future add to resources (instead of user inputs): reffa, strinfo, regionfile
 main() {
     ### Download the user inputs to /data folder ###
     mkdir /data
