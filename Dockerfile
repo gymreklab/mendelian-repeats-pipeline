@@ -16,4 +16,4 @@ ADD 1_gangstr.sh /pipeline/1_gangstr.sh
 ADD 2_dumpstr.sh /pipeline/2_dumpstr.sh
 ADD 3_postmastr.sh /pipeline/3_postmastr.sh
 
-WORKDIR pipeline
+WORKDIR /pipeline
