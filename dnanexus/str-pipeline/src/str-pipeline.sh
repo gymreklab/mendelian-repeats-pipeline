@@ -42,7 +42,8 @@ main() {
     # Reference fasta file
     dx download "$reffasta" -o /data/ref.fa
     chroms=$(grep ">" /data/ref.fa | sed 's/^>//' | cut -f 1 -d' ')
-
+    dx-docker run -v /data/:/data quay.io/ucsc_cgl/samtools faidx /data/ref.fa
+    
     # Regions file
     dx download "$regionfile" -o /data/regions.bed
 
