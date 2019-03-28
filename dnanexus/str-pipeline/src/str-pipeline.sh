@@ -17,7 +17,7 @@
 
 # TODO Need these inputs in the json:
 # bams: array of files
-# reffa: file
+# reffasta: file
 # regionfile: file
 # strinfo : file
 # famfile: file
@@ -37,7 +37,7 @@ main() {
 	bamfiles="${bamfiles},/data/bams-$i.bam"
 	dx-docker run -v /data/:/data quay.io/ucsc_cgl/samtools index /data/bams-$i.bam
     done
-    bamfiles=$(echo $bamfiles | sed '/^,//')
+    bamfiles=$(echo $bamfiles | sed 's/,//')
 
     # Reference fasta file
     dx download "$reffasta" -o /data/ref.fa
@@ -47,13 +47,13 @@ main() {
     dx download "$regionfile" -o /data/regions.bed
 
     # STR info
-    dx download "$strinfo" - o /data/strinfo.bed
+    dx download "$strinfo" -o /data/strinfo.bed
 
     # Fam file
     dx download "$famfile" -o /data/famfile.fam
     
     ### Construct the config file ###
-    CONFIGFILE=/data/config.txt
+    CONFIGFILE="/data/config.txt"
     echo "BAMS=${bamfiles}" > ${CONFIGFILE}
     echo "REFFA=/data/ref.fa" >> ${CONFIGFILE}
     echo "REGIONS=/data/regions.bed" >> ${CONFIGFILE}
@@ -64,7 +64,7 @@ main() {
     # Write output files to /results
     mkdir /data/results
     echo "OUTPREFIX=/data/results/${outprefix}" >> ${CONFIGFILE}
-
+    
     # Use hard coded numbers for now.
     echo "MINCOV=20" >> ${CONFIGFILE}
     echo "MAXCOV=1000" >> ${CONFIGFILE}
@@ -74,7 +74,7 @@ main() {
     echo "THREADS=1" >> ${CONFIGFILE} # TODO can we change this?
 
     ### Run the docker ###
-    dx-docker run -v /data/:/data gymreklab/gangstr-pipeline-2.4 ./run.sh ${CONFIGFILE}
+    dx-docker run -v /data:/data gymreklab/gangstr-pipeline-2.4 ./run.sh ${CONFIGFILE}
     
     ### Upload the outputs to DNA Nexus ###
     for chrom in $chroms; do
