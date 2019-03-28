@@ -14,5 +14,5 @@ dx build -f --create-app str-pipeline
 
 # Run the app
 ```
-dx run str-toolkit
+dx run str-pipeline
 ```
