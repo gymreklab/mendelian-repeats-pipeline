@@ -1,32 +1,73 @@
 {
-  "name": "str-pipeline",
-  "title": "str pipeline",
-  "summary": "This is to test the str pipeline",
+  "name": "str-pipeline2",
+  "title": "Str Pipeline",
+  "summary": "STR pipeline",
   "dxapi": "1.0.0",
   "version": "0.0.1",
   "inputSpec": [
     {
-      "name": "ConfigFile",
-      "label": "Configuration File",
-      "class": "string",
+      "name": "bams",
+      "label": "bam files",
+      "class": "array:file",
       "optional": false,
+      "patterns": [
+        "*.bam"
+      ],
       "help": ""
     },
     {
-      "name": "bams",
-      "label": "bam files used in analysis",
-      "class": "array:file",
+      "name": "reffasta",
+      "label": "ref fasta",
+      "class": "file",
       "optional": false,
       "patterns": [
         "*"
       ],
+      "help": ""
+    },
+    {
+      "name": "regionfile",
+      "label": "region file",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "strinfo",
+      "label": "STR info file",
+      "class": "file",
+      "optional": true,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "famfile",
+      "label": "family file",
+      "class": "file",
+      "optional": true,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "outprefix",
+      "label": "output prefix",
+      "class": "string",
+      "optional": true,
+      "default": "Results",
       "help": ""
     }
   ],
   "outputSpec": [
     {
       "name": "vcfs",
-      "label": "vcf output files",
+      "label": "vcf results",
       "class": "array:file",
       "patterns": [
         "*"
