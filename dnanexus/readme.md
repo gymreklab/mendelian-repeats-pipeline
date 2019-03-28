@@ -11,3 +11,8 @@ source dx-toolkit/environment
 ```
 dx build -f --create-app str-pipeline
 ```
+
+# Run the app
+```
+dx run str-pipeline
+```
