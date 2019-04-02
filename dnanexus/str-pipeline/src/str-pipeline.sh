@@ -28,6 +28,7 @@
 main() {
     ### Download the user inputs to /data folder ###
     mkdir /data
+    mkdir -p out/vcfs
 
     # BAM files
     bamsfiles=""
@@ -81,7 +82,10 @@ main() {
     for chrom in $chroms; do
 	vcffile=/data/results/${outprefix}.${chrom}.filtered.sorted.vcf.gz
 	vcfindex=${vcffile}.tbi
-	dx-jobutil-add-output vcfs $vcffile --class=array:file
-	dx-jobutil-add-output vcfs $vcfindex --class=array:file
+	cp ${vcffile} out/vcfs/
+	cp ${vcffile}.tbl out/vcfs/
+	dx-upload-all-outputs
+	#dx-jobutil-add-output /data/results $vcffile --class=array:file
+	#dx-jobutil-add-output /data/results $vcfindex --class=array:file
     done
 }
