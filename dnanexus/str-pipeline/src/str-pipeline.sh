@@ -82,10 +82,7 @@ main() {
     for chrom in $chroms; do
 	vcffile=/data/results/${outprefix}.${chrom}.filtered.sorted.vcf.gz
 	vcfindex=${vcffile}.tbi
-	cp ${vcffile} out/vcfs/
-	cp ${vcffile}.tbl out/vcfs/
-	dx-upload-all-outputs
-	#dx-jobutil-add-output /data/results $vcffile --class=array:file
-	#dx-jobutil-add-output /data/results $vcfindex --class=array:file
+	id=$(dx upload ${vcffile} --brief)
+	dx-jobutil-add-output vcfs "$id" --class=array:file
     done
 }
