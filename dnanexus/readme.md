@@ -15,4 +15,5 @@ dx build -f --create-app str-pipeline
 # Run the app
 ```
 dx run str-pipeline
-```
+# Run with predefined input file
+dx run str-pipeline -f input.json -y --watch
