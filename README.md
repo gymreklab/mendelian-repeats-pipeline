@@ -45,6 +45,14 @@ Outputs: `${OUTPREFIX}.${chrom}.filtered.sorted.vcf.gz`, `${OUTPREFIX}.${chrom}.
 Inputs: `${OUTPREFIX}.${chrom}.filtered.sorted.vcf.gz`: bgzipped, indexed VCFs from dumpSTR
 Outputs: `${OUTPREFIX}.${chrom}.candidates.sorted.vcf.gz`: VCF file with candidate expansions
 
+## Test the pipeline
+
+The `examples` folder contains a minimal example. To test, do:
+
+```
+./run.sh examples/test.config
+```
+
 ## To set up the docker
 ```
 docker build -t gymreklab/gangstr-pipeline-2.4 .
