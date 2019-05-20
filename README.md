@@ -1,7 +1,7 @@
 # mendelian-repeats-pipeline
 Pipeline for performing analysis of pathogenic tandem repeat mutations from NGS. The pipeline performs the following steps:
 
-## Pipeline description
+## Pipeline overview
 
 ### Input
 The pipeline takes an input configuration file (e.g. `examples/text.config`). This file specifies paths to input files and user-specified parameters.
@@ -29,7 +29,7 @@ PostMaSTR specific fields:
 * `AFFECMINHET`: Require affecteds to have at least this P(heteorzygous expansion)
 * `UNAFFMAXTOT`: Require unaffects to have at most this P(het)+p(hom) (low probability of either homozygous or heterozygous expansion)
 
-### Pipeline description
+### Pipeline steps
 
 The main pipeline file is `run.sh`, which runs the following steps:
 
