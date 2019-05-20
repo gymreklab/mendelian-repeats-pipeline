@@ -1,6 +1,6 @@
 #!/bin/bash
 # Usage: ./1_gangstr.sh <configfile>
-set -x
+
 echo $(date '+%Y %b %d %H:%M') GangSTR started 
 
 THREADS=1 # default 1, overwritten by config file
@@ -42,7 +42,7 @@ do
 	--regions $REGIONS \
 	--out ${OUTPREFIX}.${chrom} \
 	--str-info $STRINFO \
-        --chrom ${chrom} $OPTGANGSTR"
+        --chrom ${chrom} --quiet $OPTGANGSTR"
     cmd="${cmd}; cat ${OUTPREFIX}.${chrom}.vcf | bgzip -c > ${OUTPREFIX}.${chrom}.vcf.gz"
     echo "${cmd}"
 done | xargs -n1 -I% -P${THREADS} sh -c "%"

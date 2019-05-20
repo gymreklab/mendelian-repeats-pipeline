@@ -1,6 +1,6 @@
 #!/bin/bash
 # Usage: ./2_dumpstr.sh <configfile>
-set -x
+
 echo $(date '+%Y %b %d %H:%M') dumpSTR started 
 THREADS=1
 CONFIG="$1"

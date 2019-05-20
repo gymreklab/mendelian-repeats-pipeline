@@ -1,6 +1,6 @@
 #!/bin/bash
 # Usage: ./3_postmastr.sh <configfile>
-set -x
+
 echo $(date '+%Y %b %d %H:%M') postmaSTR started 
 
 CONFIG="$1"
