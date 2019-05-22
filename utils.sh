@@ -1,14 +1,15 @@
-die()
-{
-    BASE=$(basename "$0")
-    echo "$BASE error: $1" >&2
-    exit 1
-}
+
+PROGNAME="GangSTRPipeline"
 
 log()
 {
-    BASE=$(basename "$0")
-    echo "$BASE log: $1" >&2
+    echo -e "[\e[32m${PROGNAME}-LOG\e[39m] $(date '+%Y %b %d %H:%M') $1" >&2
+}
+
+die()
+{
+    echo -e "[\e[31m${PROGNAME}-ERROR\e[39m] $(date '+%Y %b %d %H:%M') $1" >&2
+    exit 1
 }
 
 run_gangstr_chrom() {
@@ -51,7 +52,7 @@ run_postmastr_chrom() {
 	--fam ${FAMFILE} \
 	--out ${OUTPREFIX}.${chrom}.candidates \
 	--affec-min-expansion-prob-het ${AFFECMINHET} \
-	--unaff-max-expansion-prob-total ${UNAFFMAXTOT} || die "Error running postmaSTR"
+	--unaff-max-expansion-prob-total ${UNAFFMAXTOT} &>/dev/null || die "Error running postmaSTR"
     cat ${OUTPREFIX}.${chrom}.candidates.vcf | vcf-sort 2>/dev/null | bgzip -c > ${OUTPREFIX}.${chrom}.candidates.sorted.vcf.gz || die "Error zipping postmastr output"
     tabix -p vcf ${OUTPREFIX}.${chrom}.candidates.sorted.vcf.gz || die "Error indexing postmastr output"
     log "Output PostmaSTR results to ${OUTPREFIX}.${chrom}.candidates.sorted.vcf.gz"

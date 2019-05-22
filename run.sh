@@ -13,21 +13,31 @@ CONFIG="$1"
 if [ -x ${CONFIG} ]; then
     die "No config file specified"
 fi
-./test_config.sh ${CONFIG} || die "Errors found in config file"
+./check_config.sh ${CONFIG} || die "Errors found in config file"
 source ${CONFIG}
 
 for chrom in ${CHROMS}; do echo $chrom; done > ${OUTPREFIX}.chroms
 
-log "$(date '+%Y %b %d %H:%M') GangSTR started "
+log "########## GangSTR started ##########"
 cat ${OUTPREFIX}.chroms | xargs -n1 -I% -P${THREADS} sh -c "run_gangstr_chrom % ${CONFIG}" || die "GangSTR error"
-log "$(date '+%Y %b %d %H:%M') GangSTR ended"
+log "########## GangSTR ended ##########"
 
-log "$(date '+%Y %b %d %H:%M') dumpSTR started "
+log "########## dumpSTR started ##########"
 cat ${OUTPREFIX}.chroms | xargs -n1 -I% -P${THREADS} sh -c "run_dumpstr_chrom % ${CONFIG}" || die "dumpSTR error"
-log "$(date '+%Y %b %d %H:%M') dumpSTR ended"
+log "########## dumpSTR ended ##########"
 
-log "$(date '+%Y %b %d %H:%M') postmaSTR started "
+log "########## postmaSTR started ##########"
 cat ${OUTPREFIX}.chroms | xargs -n1 -I% -P${THREADS} sh -c "run_postmastr_chrom % ${CONFIG}" || die "postmaSTR error"
-log "$(date '+%Y %b %d %H:%M') postmaSTR ended"
+log "########## postmaSTR ended ##########"
+
+log "########## Merging postmaSTR output ##########"
+vcf-concat $(ls ${OUTPREFIX}.*.candidates.sorted.vcf.gz) | vcf-sort 2>/dev/null | bgzip -c > ${OUTPREFIX}_merged_candidates.vcf.gz || die "Error merging postmastr"
+tabix -p vcf ${OUTPREFIX}_merged_candidates.vcf.gz || die "Error indexing postmastr"
+log "Merged postmaSTR output finished in ${OUTPREFIX}_merged_candidates.vcf.gz"
+
+log "########## Prioritizing candidates ##########"
+# TODO
+
+log "Done!"
 
 exit 0
