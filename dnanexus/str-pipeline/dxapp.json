@@ -66,9 +66,9 @@
   ],
   "outputSpec": [
     {
-      "name": "vcfs",
+      "name": "vcffile",
       "label": "vcf results",
-      "class": "array:file",
+      "class": "file",
       "patterns": [
         "*"
       ],
@@ -96,7 +96,7 @@
     "aws:us-east-1": {
       "systemRequirements": {
         "*": {
-          "instanceType": "mem1_ssd1_x4"
+          "instanceType": "mem1_ssd1_x8"
         }
       }
     }

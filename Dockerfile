@@ -12,5 +12,7 @@ RUN ./autogen.sh && ./configure && make && make install
 # Grab Mendelian pipeline
 RUN mkdir /pipeline
 ADD run.sh /pipeline/run.sh
+ADD utils.sh /pipeline/utils.sh
+ADD check_config.sh /pipeline/check_config.sh
 
 WORKDIR /pipeline

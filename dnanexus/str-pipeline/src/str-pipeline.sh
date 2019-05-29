@@ -28,7 +28,6 @@
 main() {
     ### Download the user inputs to /data folder ###
     mkdir /data
-    mkdir -p out/vcfs
 
     # BAM files
     bamsfiles=""
@@ -73,19 +72,13 @@ main() {
     echo "EXPHET=0" >> ${CONFIGFILE}
     echo "AFFECMINHET=0.8" >> ${CONFIGFILE}
     echo "UNAFFMAXTOT=0.2" >> ${CONFIGFILE}
-    echo "THREADS=1" >> ${CONFIGFILE} # TODO can we change this?
+    echo "THREADS=6" >> ${CONFIGFILE} # TODO can we change this?
 
     ### Run the docker ###
-    dx-docker run -v /data:/data gymreklab/gangstr-pipeline-2.4 ./run.sh ${CONFIGFILE}
+    dx-docker run -v /data:/data gymreklab/gangstr-pipeline-2.4.2 ./run.sh ${CONFIGFILE}
     
     ### Upload the outputs to DNA Nexus ###
-    for chrom in $chroms; do
-	vcffile=/data/results/${outprefix}.${chrom}.filtered.sorted.vcf.gz
-	vcfindex=${vcffile}.tbi
-	cp ${vcffile} out/vcfs/
-	cp ${vcffile}.tbl out/vcfs/
-	dx-upload-all-outputs
-	#dx-jobutil-add-output /data/results $vcffile --class=array:file
-	#dx-jobutil-add-output /data/results $vcfindex --class=array:file
-    done
+    vcffile=/data/results/${outprefix}_merged_candidates.vcf.gz
+    vcfid=$(dx upload $vcffile --brief)
+    dx-jobutil-add-output vcffile "$vcfid" --class=file
 }
