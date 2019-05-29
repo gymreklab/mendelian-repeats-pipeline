@@ -66,9 +66,9 @@
   ],
   "outputSpec": [
     {
-      "name": "vcffile",
+      "name": "vcfs",
       "label": "vcf results",
-      "class": "file",
+      "class": "array:file",
       "patterns": [
         "*"
       ],

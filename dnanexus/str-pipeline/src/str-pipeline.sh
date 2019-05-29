@@ -28,6 +28,7 @@
 main() {
     ### Download the user inputs to /data folder ###
     mkdir /data
+    mkdir -p out/vcfs
 
     # BAM files
     bamsfiles=""
@@ -78,7 +79,13 @@ main() {
     dx-docker run -v /data:/data gymreklab/gangstr-pipeline-2.4.2 ./run.sh ${CONFIGFILE}
     
     ### Upload the outputs to DNA Nexus ###
+    for chrom in $chroms; do
+	vcffile=/data/results/${outprefix}.${chrom}.filtered.sorted.vcf.gz
+	vcfindex=${vcffile}.tbi
+	cp ${vcffile} out/vcfs/
+	cp ${vcffile}.tbl out/vcfs/
+    done
     vcffile=/data/results/${outprefix}_merged_candidates.vcf.gz
-    vcfid=$(dx upload $vcffile --brief)
-    dx-jobutil-add-output vcffile "$vcfid" --class=file
+    cp ${vcffile} out/vcfs/
+    dx-upload-all-outputs
 }
