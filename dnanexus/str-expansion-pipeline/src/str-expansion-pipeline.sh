@@ -73,10 +73,10 @@ main() {
     echo "EXPHET=0" >> ${CONFIGFILE}
     echo "AFFECMINHET=0.8" >> ${CONFIGFILE}
     echo "UNAFFMAXTOT=0.2" >> ${CONFIGFILE}
-    echo "THREADS=1" >> ${CONFIGFILE} # TODO can we change this?
+    echo "THREADS=6" >> ${CONFIGFILE}
 
     ### Run the docker ###
-    dx-docker run -v /data:/data gymreklab/gangstr-pipeline-2.4 ./run.sh ${CONFIGFILE}
+    dx-docker run -v /data:/data gymreklab/gangstr-pipeline-2.4.2 ./run.sh ${CONFIGFILE}
     
     ### Upload the outputs to DNA Nexus ###
     for chrom in $chroms; do
@@ -84,8 +84,8 @@ main() {
 	vcfindex=${vcffile}.tbi
 	cp ${vcffile} out/vcfs/
 	cp ${vcffile}.tbl out/vcfs/
-	dx-upload-all-outputs
-	#dx-jobutil-add-output /data/results $vcffile --class=array:file
-	#dx-jobutil-add-output /data/results $vcfindex --class=array:file
     done
+    vcffile=/data/results/${outprefix}_merged_candidates.vcf.gz
+    cp ${vcffile} out/vcfs/
+    dx-upload-all-outputs
 }

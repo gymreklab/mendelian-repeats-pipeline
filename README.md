@@ -60,5 +60,5 @@ docker push gymreklab/gangstr-pipeline-2.4
 ```
 ## To run using docker (you'll need to edit the config file paths)
 ```
-docker run -v examples:/pipeline/examples gymreklab/gangstr-pipeline-2.4 ./run.sh examples/test.config
+docker run -it -v /home/mgymrek/workspace/mendelian-repeats-pipeline/examples:/pipeline/examples gymreklab/gangstr-pipeline-2.4.2 ./run.sh examples/test.config
 ```

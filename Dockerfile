@@ -1,4 +1,4 @@
-FROM gymreklab/str-toolkit-2.4
+FROM gymreklab/str-toolkit-2.4.2
 
 # Install autotools
 RUN apt-get install -y autoconf
@@ -12,8 +12,5 @@ RUN ./autogen.sh && ./configure && make && make install
 # Grab Mendelian pipeline
 RUN mkdir /pipeline
 ADD run.sh /pipeline/run.sh
-ADD 1_gangstr.sh /pipeline/1_gangstr.sh
-ADD 2_dumpstr.sh /pipeline/2_dumpstr.sh
-ADD 3_postmastr.sh /pipeline/3_postmastr.sh
 
 WORKDIR /pipeline
