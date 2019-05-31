@@ -9,7 +9,7 @@ source /storage/resources/source/dx-toolkit/environment
 # Build the app
 ```
 dx build -f --create-app str-expansion-pipeline
-dx publish str-expansion-pipeline/0.0.1
+dx publish str-expansion-pipeline/0.0.2
 ```
 
 # Run the app

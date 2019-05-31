@@ -83,7 +83,7 @@ main() {
 	vcffile=/data/results/${outprefix}.${chrom}.filtered.sorted.vcf.gz
 	vcfindex=${vcffile}.tbi
 	cp ${vcffile} out/vcfs/
-	cp ${vcffile}.tbl out/vcfs/
+	cp ${vcffile}.tbi out/vcfs/
     done
     vcffile=/data/results/${outprefix}_merged_candidates.vcf.gz
     cp ${vcffile} out/vcfs/
