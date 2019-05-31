@@ -3,7 +3,7 @@
 Assume we're running in a docker that has dx installed. To get to a working docker do:
 
 ```
-source dx-toolkit/environment
+source /storage/resources/source/dx-toolkit/environment
 ```
 
 # Build the app
@@ -14,7 +14,5 @@ dx publish str-expansion-pipeline/0.0.1
 
 # Run the app
 ```
-dx run str-expansion-pipeline
-# Run with predefined input file
-dx run str-expansion-pipeline -f input.json -y --watch
+dx run str-expansion-pipeline -f example-input.json -y --watch
 ```

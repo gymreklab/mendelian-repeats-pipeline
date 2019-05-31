@@ -2,51 +2,51 @@
     "bams": [
         {
             "$dnanexus_link": {
-                "project": "project-FXJ88j80g94V9FGK2Fyk8P9j", 
-                "id": "file-FXJqq480g94qB3YfF2VyYQpZ"
+		"project": "project-FXJ88j80g94V9FGK2Fyk8P9j",
+		"id": "file-FYjZ95Q0g94QKQ93600KxjZY"
             }
         }, 
         {
             "$dnanexus_link": {
                 "project": "project-FXJ88j80g94V9FGK2Fyk8P9j", 
-                "id": "file-FXJqq500g94q3jJ8F311ZqF2"
+                "id": "file-FYjZ95Q0g94XjF7221X876Qx"
             }
         }, 
         {
             "$dnanexus_link": {
                 "project": "project-FXJ88j80g94V9FGK2Fyk8P9j", 
-                "id": "file-FXJqq5Q0g94Yv6JQF36QYFZQ"
+                "id": "file-FYjZ95Q0g94kVfPj4qF37yXV"
             }
         }, 
         {
             "$dnanexus_link": {
                 "project": "project-FXJ88j80g94V9FGK2Fyk8P9j", 
-                "id": "file-FXJqq5j0g94Yv6JQF36QYFZZ"
+                "id": "file-FYjZ95Q0g94pY54p4kX5103p"
             }
         }
     ], 
     "reffasta": {
         "$dnanexus_link": {
             "project": "project-FXJ88j80g94V9FGK2Fyk8P9j", 
-            "id": "file-FXJqqK80g94zf6Q5JXBKP77b"
+            "id": "file-FYjZ95Q0g94jq54G261z801f"
         }
     }, 
     "regionfile": {
         "$dnanexus_link": {
             "project": "project-FXJ88j80g94V9FGK2Fyk8P9j", 
-            "id": "file-FXJqqGQ0g94yYjvPJY1Bbyyf"
+            "id": "file-FYjZ95Q0g94z89Z5Pp4kq278"
         }
     }, 
     "strinfo": {
         "$dnanexus_link": {
             "project": "project-FXJ88j80g94V9FGK2Fyk8P9j", 
-            "id": "file-FXJqqGj0g94kxP9qJYV3q7yB"
+            "id": "file-FYjZ95Q0g94Zp2P84q9PpJ1y"
         }
     }, 
     "famfile": {
         "$dnanexus_link": {
             "project": "project-FXJ88j80g94V9FGK2Fyk8P9j", 
-            "id": "file-FXJqqQQ0g94fFXK09b8VX1X0"
+            "id": "file-FYjZ95Q0g94zZX142pVFb5QV"
         }
     }
 }
